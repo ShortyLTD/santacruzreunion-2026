@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alarcon Ruano Family Reunion – Santa Cruz 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+  <script src="/map-config.js" defer></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js" defer></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --sand: #F4E9D8;
+      --ocean: #1F4E5F;
+      --redwood: #2F5D50;
+      --sunset: #E26A3D;
+      --navy: #0F2A44;
+      --parchment: #EDE3D0;
+      --cream: #FAF5EC;
+      --purple: #7B5EA7;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      background-color: var(--sand);
+      color: var(--navy);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(15,42,68,0.008) 2px, rgba(15,42,68,0.008) 4px);
+      mix-blend-mode: multiply;
+    }
+    a { color: var(--sunset); text-decoration: none; transition: color 0.3s ease; }
+    a:hover { color: var(--ocean); }
+    button { cursor: pointer; }
+    .hero-title { font-family: 'League Gothic', 'Arial Narrow', sans-serif; }
+    .section-title, .card-title, .event-title { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* HERO SECTION */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .hero-texture {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(226,106,61,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 30% 70%, rgba(31,78,95,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(47,93,80,0.15) 0%, transparent 50%);
+      z-index: 1;
+    }
+    .hero-illustration {
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; z-index: 2; opacity: 0.9;
+    }
+    .hero-scene { display: block; width: 100%; height: auto; }
+    .hero-content {
+      position: relative; z-index: 3;
+      text-align: center; padding: 2rem 1.5rem;
+      animation: fadeInUp 1.2s ease-out;
+    }
+    .hero-border {
+      border: 2px solid rgba(244,233,216,0.4);
+      padding: 2.5rem 2rem 2rem;
+      position: relative;
+    }
+    .hero-border::before, .hero-border::after {
+      content: ''; position: absolute;
+      width: 12px; height: 12px;
+      border: 2px solid var(--sunset);
+    }
+    .hero-border::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+    .hero-border::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+    .hero-prelude {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic; font-size: 0.9rem;
+      color: var(--sand); opacity: 0.8;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title { color: var(--sand); line-height: 0.95; margin-bottom: 0.75rem; }
+    .title-line-1 {
+      display: block;
+      font-size: clamp(3rem, 10vw, 7rem);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .title-line-2 {
+      display: block;
+      font-size: clamp(3rem, 10vw, 7rem);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .hero-divider { margin: 1rem auto; display: flex; justify-content: center; }
+    .hero-location {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 3vw, 1.8rem);
+      font-weight: 400; font-style: italic;
+      color: var(--sand); letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .hero-date {
+      font-family: 'League Gothic', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      color: var(--sunset); text-transform: uppercase;
+      letter-spacing: 0.25em;
+    }
+    .hero-subtitle {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.95rem; color: var(--sand);
+      opacity: 0.75; margin-top: 2rem; line-height: 1.8;
+    }
+    .hero-scroll-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 2.5rem; padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(244,233,216,0.4);
+      color: var(--sand);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: transparent;
+      transition: all 0.3s ease;
+      animation: gentleBounce 3s ease-in-out infinite;
+      border-radius: 20px;
+    }
+    .hero-scroll-cta:hover {
+      background: rgba(244,233,216,0.1);
+      color: var(--sand); border-color: var(--sunset);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* MAP SECTION */
+    #map-section {
+      padding: 4rem 1.5rem 3rem;
+      background: linear-gradient(180deg, var(--sand) 0%, var(--parchment) 100%);
+    }
+    .section-header { text-align: center; max-width: 600px; margin: 0 auto 2rem; }
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900; color: var(--navy);
+      margin-bottom: 0.5rem; position: relative;
+    }
+    .section-title::after {
+      content: ''; display: block;
+      width: 60px; height: 3px;
+      background: var(--sunset);
+      margin: 0.75rem auto 0; border-radius: 2px;
+    }
+    .section-desc {
+      font-size: 0.95rem; color: var(--ocean);
+      font-style: italic; margin-top: 0.75rem;
+    }
+    .map-filters {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.5rem; margin-bottom: 1.5rem;
+      max-width: 700px; margin-left: auto; margin-right: auto;
+    }
+    .filter-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border: 1.5px solid var(--navy);
+      background: transparent; color: var(--navy);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem; letter-spacing: 0.05em;
+      cursor: pointer; transition: all 0.3s ease; border-radius: 20px;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--navy); color: var(--sand);
+    }
+    .filter-dot {
+      display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    }
+    .filter-icon { font-size: 0.7rem; }
+    #map {
+      width: 100%; max-width: 960px; height: 500px;
+      margin: 0 auto;
+      border: 3px solid var(--navy); border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(15,42,68,0.15), inset 0 0 0 1px rgba(15,42,68,0.1);
+    }
+    .map-hint {
+      text-align: center; font-size: 0.8rem;
+      color: var(--ocean); margin-top: 1rem; opacity: 0.7;
+    }
+
+    /* FIELD GUIDE SECTION */
+    #field-guide-section {
+      padding: 4rem 1.5rem;
+      background: linear-gradient(180deg, var(--parchment) 0%, var(--cream) 100%);
+    }
+    .field-guide-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-bottom: 2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      border-bottom: 2px solid var(--navy);
+    }
+    .tab-btn {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      background: transparent;
+      color: var(--navy);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.3s ease;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tab-btn:hover {
+      color: var(--sunset);
+    }
+    .tab-btn.active {
+      color: var(--sunset);
+      border-bottom-color: var(--sunset);
+    }
+    /* tab-content base styles moved to TRANSITION section below */
+    .tab-intro {
+      text-align: center;
+      font-style: italic;
+      color: var(--ocean);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .guide-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .guide-item {
+      padding: 1.5rem;
+      background: white;
+      border: 1px solid var(--navy);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .guide-item:hover {
+      box-shadow: 0 4px 20px rgba(15,42,68,0.1);
+      transform: translateY(-2px);
+    }
+    .guide-item-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .guide-item-desc {
+      font-size: 0.9rem;
+      color: var(--ocean);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .guide-item-meta {
+      font-size: 0.75rem;
+      color: var(--redwood);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .guide-item-tag {
+      display: inline-block;
+      background: rgba(226,106,61,0.1);
+      color: var(--sunset);
+      padding: 0.25rem 0.5rem;
+      border-radius: 2px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    /* WHERE TO STAY SECTION */
+    #lodging-section {
+      padding: 4rem 1.5rem;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--parchment) 100%);
+    }
+    .lodging-neighborhoods {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .neighborhood-group {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: white;
+      border: 1px solid var(--navy);
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(15,42,68,0.06);
+    }
+    .neighborhood-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .neighborhood-subtitle {
+      font-style: italic;
+      color: var(--ocean);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .lodging-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .lodging-card {
+      padding: 1.25rem;
+      background: var(--cream);
+      border: 1px solid var(--parchment);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .lodging-card:hover {
+      box-shadow: 0 4px 15px rgba(15,42,68,0.08);
+      transform: translateY(-2px);
+    }
+    .lodging-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .lodging-desc {
+      font-size: 0.85rem;
+      color: var(--ocean);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+    .lodging-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--redwood);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: rgba(47,93,80,0.1);
+      border-radius: 2px;
+    }
+    .community-fave {
+      background: rgba(226,106,61,0.15);
+      color: var(--sunset);
+      font-weight: 700;
+    }
+
+    /* SCHEDULE SECTION */
+    #schedule-section {
+      padding: 4rem 1.5rem;
+      background: linear-gradient(180deg, var(--parchment) 0%, var(--sand) 100%);
+    }
+    .schedule-intro {
+      text-align: center;
+      font-style: italic;
+      color: var(--ocean);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .schedule-events {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      gap: 2rem;
+    }
+    .event-card {
+      padding: 2rem;
+      background: white;
+      border: 2px solid var(--navy);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .event-card:hover {
+      box-shadow: 0 6px 25px rgba(15,42,68,0.12);
+      transform: translateY(-2px);
+    }
+    .event-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .event-date {
+      font-family: 'League Gothic', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sunset);
+      font-weight: 700;
+    }
+    .event-title {
+      font-size: 1.6rem;
+      color: var(--navy);
+      font-weight: 700;
+      flex-grow: 1;
+    }
+    .event-desc {
+      color: var(--ocean);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .event-time-location {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+    .event-time-label, .event-location-label {
+      font-weight: 700;
+      color: var(--redwood);
+    }
+    .event-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.65rem 1.25rem;
+      border: 1.5px solid var(--navy);
+      background: transparent;
+      color: var(--navy);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 20px;
+    }
+    .btn:hover {
+      background: var(--navy);
+      color: var(--sand);
+    }
+    .btn-primary {
+      background: var(--sunset);
+      border-color: var(--sunset);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #D4592F;
+      border-color: #D4592F;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 1.5rem;
+      background: var(--navy);
+      text-align: center;
+      color: var(--sand);
+      font-size: 0.9rem;
+      border-top: 3px solid var(--sunset);
+    }
+
+    /* MAPBOX GL JS CUSTOMIZATION */
+    .mapboxgl-popup-close-button {
+      display: none;
+    }
+    .mapboxgl-popup-content {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      color: var(--navy);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .popup-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .popup-category {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: rgba(226,106,61,0.15);
+      color: var(--sunset);
+      padding: 0.25rem 0.5rem;
+      border-radius: 2px;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .popup-desc {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--ocean);
+      margin-bottom: 0.75rem;
+    }
+    .popup-link {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: var(--navy);
+      color: var(--sand);
+      border-radius: 2px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: none;
+      font-family: inherit;
+    }
+    .popup-link:hover {
+      background: var(--sunset);
+    }
+    .guide-item-title a, .lodging-name a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .guide-item-title a:hover, .lodging-name a:hover {
+      color: var(--sunset);
+    }
+
+    /* STICKY NAV */
+    .sticky-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: var(--navy);
+      transform: translateY(-100%);
+      transition: transform 0.35s ease;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+      box-shadow: 0 2px 12px rgba(15,42,68,0.25);
+    }
+    .sticky-nav.visible { transform: translateY(0); }
+    .sticky-nav a {
+      color: var(--sand);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.25rem;
+      transition: color 0.3s ease, background 0.3s ease;
+      text-decoration: none;
+    }
+    .sticky-nav a:hover, .sticky-nav a.active {
+      color: var(--sunset);
+      background: rgba(244,233,216,0.08);
+    }
+
+    /* TAB CONTENT */
+    .tab-content {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .tab-content.active {
+      display: block;
+      animation: tabFadeIn 0.25s ease-out;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* WHERE TO EAT SEARCH */
+    .eat-search-wrap {
+      max-width: 400px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+    .eat-search {
+      width: 100%;
+      padding: 0.7rem 1rem 0.7rem 2.5rem;
+      border: 1.5px solid var(--navy);
+      border-radius: 20px;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.9rem;
+      color: var(--navy);
+      background: white;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .eat-search:focus { border-color: var(--sunset); }
+    .eat-search-icon {
+      position: absolute;
+      left: 0.9rem; top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: var(--ocean);
+      pointer-events: none;
+    }
+    .eat-no-results {
+      text-align: center;
+      color: var(--ocean);
+      font-style: italic;
+      padding: 2rem;
+      display: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      #map-section, #field-guide-section, #lodging-section, #schedule-section {
+        padding: 3rem 1.5rem;
+      }
+      .neighborhood-group { padding: 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-border { padding: 2rem 1.5rem 1.5rem; }
+      #hero { max-height: 90vh; min-height: auto; }
+      #map { height: 400px; }
+      .event-header { flex-direction: column; gap: 0.5rem; }
+      .event-title { font-size: 1.3rem; }
+      .map-filters { gap: 0.25rem; }
+      .filter-btn { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+      .field-guide-tabs {
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start;
+        padding-bottom: 2px;
+      }
+      .field-guide-tabs::-webkit-scrollbar { display: none; }
+      .tab-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      #map-section, #field-guide-section, #lodging-section, #schedule-section {
+        padding: 2.5rem 1rem;
+      }
+      .sticky-nav a { font-size: 0.7rem; padding: 0.6rem 0.75rem; }
+    }
+
+    @media (max-width: 480px) {
+      #hero { max-height: 85vh; }
+      .hero-border { padding: 1.5rem 1rem 1rem; }
+      .hero-subtitle { font-size: 0.85rem; margin-top: 1rem; }
+      .hero-scroll-cta { margin-top: 1.5rem; padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+      #map { height: 320px; }
+      .guide-items { grid-template-columns: 1fr; gap: 1rem; }
+      .lodging-cards { grid-template-columns: 1fr; }
+      .neighborhood-group { padding: 1.25rem; margin-bottom: 1.5rem; }
+      .event-card { padding: 1.25rem; }
+      .section-title { font-size: 1.5rem; }
+      .sticky-nav a { font-size: 0.65rem; padding: 0.55rem 0.5rem; letter-spacing: 0.04em; }
+      .eat-search-wrap { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav" aria-label="Section navigation">
+  <a href="#map-section">Map</a>
+  <a href="#field-guide-section">Guide</a>
+  <a href="#lodging-section">Stay</a>
+  <a href="#schedule-section">Schedule</a>
+</nav>
+
+<!-- HERO SECTION -->
+<section id="hero">
+  <div class="hero-texture"></div>
+  <div class="hero-illustration">
+    <svg class="hero-scene" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice">
+      <!-- Ocean -->
+      <defs>
+        <linearGradient id="oceanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#1F4E5F;stop-opacity:0.3" />
+          <stop offset="100%" style="stop-color:#0F2A44;stop-opacity:0.5" />
+        </linearGradient>
+        <path id="wave1" d="M0,200 Q75,180 150,200 T300,200 T450,200 T600,200 T750,200 T900,200 T1050,200 T1200,200" fill="none" stroke="rgba(244,233,216,0.15)" stroke-width="2"/>
+      </defs>
+      <rect width="1200" height="400" fill="url(#oceanGrad)"/>
+      <use href="#wave1" y="20"/>
+      <use href="#wave1" y="40" opacity="0.5"/>
+      <!-- Beach -->
+      <ellipse cx="600" cy="350" rx="600" ry="80" fill="rgba(244,233,216,0.2)"/>
+      <!-- Distant redwood trees -->
+      <g opacity="0.15">
+        <polygon points="100,250 80,350 120,350"/>
+        <polygon points="250,270 230,350 270,350"/>
+        <polygon points="900,260 880,350 920,350"/>
+        <polygon points="1050,280 1030,350 1070,350"/>
+      </g>
+      <!-- Foreground elements -->
+      <g opacity="0.25">
+        <path d="M50,300 Q70,250 90,300" fill="none" stroke="rgba(244,233,216,0.4)" stroke-width="3"/>
+        <path d="M1100,310 Q1120,260 1140,310" fill="none" stroke="rgba(244,233,216,0.4)" stroke-width="3"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-border">
+      <p class="hero-prelude">The Annual</p>
+      <h1 class="hero-title">
+        <span class="title-line-1">Alarcon</span>
+        <span class="title-line-2">Ruano</span>
+      </h1>
+      <div class="hero-divider">
+        <span style="color: var(--sunset); font-size: 1.5rem;">|</span>
+      </div>
+      <h2 class="hero-title" style="font-size: clamp(2.8rem, 8vw, 3.5rem); font-family: 'League Gothic', sans-serif; letter-spacing: 0.1em; color: var(--sunset);">
+        <span class="title-line-2">Family Reunion</span>
+      </h2>
+      <p class="hero-location">Santa Cruz by the Sea</p>
+      <p class="hero-date">June 2026</p>
+    </div>
+    <p class="hero-subtitle">
+      Your local's guide to everything worth doing.<br>
+      Everything is optional. Nothing will disappoint.
+    </p>
+    <button class="hero-scroll-cta" onclick="document.getElementById('map-section').scrollIntoView({behavior: 'smooth'})">
+      Explore the Guide
+      <span style="font-size: 1rem;">↓</span>
+    </button>
+  </div>
+</section>
+
+<!-- MAP SECTION -->
+<section id="map-section">
+  <div class="section-header">
+    <h2 class="section-title">Story Map</h2>
+    <p class="section-desc">Click any pin to discover what awaits. Works in all browsers including Safari.</p>
+  </div>
+
+  <div class="map-filters" id="mapFilters">
+    <button class="filter-btn active" data-filter="all">
+      <span class="filter-dot" style="background: var(--navy);"></span>
+      All
+    </button>
+    <button class="filter-btn" data-filter="reunion">
+      <span class="filter-dot" style="background: var(--sunset);"></span>
+      Reunion
+    </button>
+    <button class="filter-btn" data-filter="nature">
+      <span class="filter-dot" style="background: var(--redwood);"></span>
+      Nature
+    </button>
+    <button class="filter-btn" data-filter="music">
+      <span class="filter-dot" style="background: var(--purple);"></span>
+      Music
+    </button>
+    <button class="filter-btn" data-filter="art">
+      <span class="filter-dot" style="background: #E8A87C;"></span>
+      Art
+    </button>
+    <button class="filter-btn" data-filter="food">
+      <span class="filter-dot" style="background: #D4A574;"></span>
+      Food & Drink
+    </button>
+    <button class="filter-btn" data-filter="wellness">
+      <span class="filter-dot" style="background: #5BA88F;"></span>
+      Wellness
+    </button>
+    <button class="filter-btn" data-filter="shopping">
+      <span class="filter-dot" style="background: #C67B4E;"></span>
+      Shopping
+    </button>
+    <button class="filter-btn" data-filter="lodging">
+      <span class="filter-dot" style="background: var(--ocean);"></span>
+      Lodging
+    </button>
+  </div>
+
+  <div id="map"></div>
+  <p class="map-hint">Click any marker to see details and get directions.</p>
+</section>
+
+<!-- FIELD GUIDE SECTION -->
+<section id="field-guide-section">
+  <div class="section-header">
+    <h2 class="section-title">The Santa Cruz Field Guide</h2>
+    <p class="section-desc">Curated by locals. Organized by vibe. Click any item to learn more.</p>
+  </div>
+
+  <div class="field-guide-tabs" role="tablist" aria-label="Field guide categories">
+    <button class="tab-btn active" data-tab="events" role="tab" aria-selected="true" aria-controls="events" id="tab-events">🗓️ Events</button>
+    <button class="tab-btn" data-tab="nature" role="tab" aria-selected="false" aria-controls="nature" id="tab-nature">🌿 Nature</button>
+    <button class="tab-btn" data-tab="music" role="tab" aria-selected="false" aria-controls="music" id="tab-music">🎵 Music</button>
+    <button class="tab-btn" data-tab="art" role="tab" aria-selected="false" aria-controls="art" id="tab-art">🎨 Art</button>
+    <button class="tab-btn" data-tab="food" role="tab" aria-selected="false" aria-controls="food" id="tab-food">🍺 Food & Drink</button>
+    <button class="tab-btn" data-tab="wellness" role="tab" aria-selected="false" aria-controls="wellness" id="tab-wellness">🧘 Wellness</button>
+    <button class="tab-btn" data-tab="shopping" role="tab" aria-selected="false" aria-controls="shopping" id="tab-shopping">🛍️ Shopping</button>
+    <button class="tab-btn" data-tab="eat" role="tab" aria-selected="false" aria-controls="eat" id="tab-eat">🍽️ Where to Eat</button>
+  </div>
+
+  <!-- EVENTS TAB -->
+  <div id="events" class="tab-content active" role="tabpanel" aria-labelledby="tab-events">
+    <p class="tab-intro">Check these first — Santa Cruz always has something happening you'd never expect.</p>
+    <div class="guide-items">
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruz.org/upcoming-events/" target="_blank">📅 Santa Cruz County Events</a></div>
+        <div class="guide-item-desc">Official county calendar — comprehensive and updated frequently.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.goodtimes.sc/" target="_blank">📰 Good Times SC</a></div>
+        <div class="guide-item-desc">The alt-weekly calendar — best for local music, art, and community picks.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.eventsantacruz.com/" target="_blank">📋 Event Santa Cruz</a></div>
+        <div class="guide-item-desc">Community event listings across all categories.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://lookout.co/santa-cruz-events" target="_blank">🔍 Lookout Santa Cruz</a></div>
+        <div class="guide-item-desc">Local news outlet with a well-curated events calendar.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.collectivesantacruz.com/" target="_blank">✨ The Collective Santa Cruz</a></div>
+        <div class="guide-item-desc">Pop-ups, local artisans, Home Sweet Santa Cruz — the best of homegrown community events.</div>
+        <div class="guide-item-meta"><span class="guide-item-tag community-fave">Community Favorite</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NATURE TAB -->
+  <div id="nature" class="tab-content" role="tabpanel" aria-labelledby="tab-nature">
+    <p class="tab-intro">From ancient redwoods to coastal bluffs — Santa Cruz outdoor options are genuinely world-class.</p>
+    <div class="guide-items">
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.cityofsantacruz.com/government/city-departments/parks-recreation/parks-beaches-open-spaces/parks/west-cliff" target="_blank">🌊 West Cliff Walk</a></div>
+        <div class="guide-item-desc">Iconic coastal bluff path. Dolphins, surfers, and the best sunset views in town.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.parks.ca.gov/henrycowell/" target="_blank">🌲 Henry Cowell Redwoods</a></div>
+        <div class="guide-item-desc">Ancient giants on a flat, stroller-friendly grove loop. Easy for all ages.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.parks.ca.gov/wilderranch/" target="_blank">🏖️ Wilder Ranch — Ocean Walk</a></div>
+        <div class="guide-item-desc">Coastal trail with sweeping ocean views. Farmhouse ruins and wildflowers too.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.alltrails.com/trail/us/california/enchanted-loop-trail" target="_blank">🧚 Enchanted Forest Trail</a></div>
+        <div class="guide-item-desc">A genuinely magical forest trail — the name doesn't lie.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.parks.ca.gov/?page_id=666" target="_blank">🌿 Nisene Marks State Park</a></div>
+        <div class="guide-item-desc">Deep forest hiking in the Santa Cruz Mountains — miles of quiet trails.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://landofmedicinebuddha.org/" target="_blank">🛐 Land of Medicine Buddha</a></div>
+        <div class="guide-item-desc">Forest trails and meditation classes. A genuinely peaceful escape.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://arboretum.ucsc.edu/" target="_blank">🌸 UCSC Arboretum & Botanical Garden</a></div>
+        <div class="guide-item-desc">Outstanding birding. Rare plant collections. Stunning hillside campus setting.</div>
+        <div class="guide-item-meta"><span class="guide-item-tag">Great for Birding</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://walksantacruz.com/" target="_blank">🚶 Santa Cruz Historical Walks</a></div>
+        <div class="guide-item-desc">Local guided tours — 3 routes to choose from. History, architecture, great stories.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://club-ed.com/" target="_blank">🏄 Surf Lessons at Cowell Beach</a></div>
+        <div class="guide-item-desc">Beginner-friendly surf school right at Cowell Beach — the most protected, mellow break in town, right next to the Boardwalk. Best spot to learn in Santa Cruz.</div>
+        <div class="guide-item-meta"><span class="guide-item-tag">Cowell Beach</span><span class="guide-item-tag">Book Ahead</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://richardschmidt.com/" target="_blank">🌊 Richard Schmidt Surf School</a></div>
+        <div class="guide-item-desc">One of the most respected surf schools in Santa Cruz — Richard has been teaching here for decades. A local institution.</div>
+        <div class="guide-item-meta"><span class="guide-item-tag">Local Institution</span><span class="guide-item-tag">Book Ahead</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruz.org/blog/top-mountain-biking-trails-in-santa-cruz-county/" target="_blank">🚵 Top 5 MTB Rides</a></div>
+        <div class="guide-item-desc">Scenic mountain bike trails around the county — beginner to expert.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.epicentercycling.com/" target="_blank">🚲 Bike Rentals — Epicenter Cycling</a></div>
+        <div class="guide-item-desc">Mountain and road bike rentals from a great local shop.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://ebikescruz.com/" target="_blank">⚡ Ebike Rentals — eBikes Cruz</a></div>
+        <div class="guide-item-desc">Electric bikes for the hills. See more with less effort.</div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://santacruz.bcycle.com/" target="_blank">🚴 City BCycle Pedal-Assist Ebikes</a></div>
+        <div class="guide-item-desc">City-wide electric bike share. Affordable, fun, easy to pick up/drop off.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUSIC TAB -->
+  <div id="music" class="tab-content" role="tabpanel" aria-labelledby="tab-music">
+    <p class="tab-intro">Santa Cruz punches way above its weight musically. Jazz, indie, Latin, Afrobeat — all within a few miles of each other.</p>
+    <div class="guide-items">
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.kuumbwajazz.org/" target="_blank">🎷 Kuumbwa Jazz Center</a></div>
+        <div class="guide-item-desc">World-class jazz in an intimate 200-seat room. One of the best small jazz venues in the country. 320 Cedar St, downtown.</div>
+        <div class="guide-item-meta"><span class="tag">Jazz</span><span class="tag">Downtown</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://catalystclub.com/" target="_blank">🎸 The Catalyst Club</a></div>
+        <div class="guide-item-desc">The big room. National touring acts, local legends, and everything in between since 1969. 1011 Pacific Ave.</div>
+        <div class="guide-item-meta"><span class="tag">Live Music</span><span class="tag">Downtown</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://moesalley.com/" target="_blank">🎶 Moe's Alley</a></div>
+        <div class="guide-item-desc">Blues, reggae, salsa, funk — the vibe here is always right. 1535 Commercial Way. Check the calendar before you go.</div>
+        <div class="guide-item-meta"><span class="tag">Blues</span><span class="tag">Reggae</span><span class="tag">Eastside</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.quarryamphitheater.com/" target="_blank">🏔️ Quarry Amphitheater</a></div>
+        <div class="guide-item-desc">Open-air amphitheater carved into a former limestone quarry on the UCSC campus. Stunning natural acoustics and redwood backdrop.</div>
+        <div class="guide-item-meta"><span class="tag">Outdoor</span><span class="tag">UCSC</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://salsabytheseaofficial.com/" target="_blank">💃 Salsa by the Sea</a></div>
+        <div class="guide-item-desc">Free weekly salsa dancing on the beach/wharf area. All levels welcome — lessons usually included. Sunday evenings.</div>
+        <div class="guide-item-meta"><span class="tag">Dance</span><span class="tag">Free</span><span class="tag">Wharf</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.abbottsquaremarket.com/events" target="_blank">🥁 Afro-Beats @ Abbott Square</a></div>
+        <div class="guide-item-desc">Bi-weekly Afrobeats DJ party at the outdoor Abbott Square Market, 725 Front St. Great energy, great people.</div>
+        <div class="guide-item-meta"><span class="tag">DJ</span><span class="tag">Afrobeat</span><span class="tag">Downtown</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.woodhousebrews.com/events" target="_blank">🍺 Woodhouse Brewery Events</a></div>
+        <div class="guide-item-desc">Craft brewery at 119 Madrone St with a packed live music calendar. Comedy nights too. Solid beer, great atmosphere.</div>
+        <div class="guide-item-meta"><span class="tag">Live Music</span><span class="tag">Brewery</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruz.org/upcoming-event/midtown-santa-cruz-friday-summer-block-parties/" target="_blank">🎉 Midtown Fridays Summer Block Party</a></div>
+        <div class="guide-item-desc">Summer block party on Soquel Ave with live bands, food trucks, and local vendors. Fridays May–August, 5–9 PM. Free.</div>
+        <div class="guide-item-meta"><span class="tag">Block Party</span><span class="tag">Free</span><span class="tag">Midtown</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ART TAB -->
+  <div id="art" class="tab-content" role="tabpanel" aria-labelledby="tab-art">
+    <p class="tab-intro">Santa Cruz has a deep creative streak — from Shakespeare under the redwoods to First Friday gallery walks downtown.</p>
+    <div class="guide-items">
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://firstfridaysantacruz.com/" target="_blank">🎨 First Friday Art Walk</a></div>
+        <div class="guide-item-desc">Monthly countywide art tour on first Friday evenings. Galleries, shops, and cultural venues all open their doors. Free and walkable downtown.</div>
+        <div class="guide-item-meta"><span class="tag">Gallery Walk</span><span class="tag">Free</span><span class="tag">Downtown</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://santacruzshakespeare.org/" target="_blank">🎭 Santa Cruz Shakespeare in the Redwoods</a></div>
+        <div class="guide-item-desc">Professional Shakespeare performances at the Audrey Stanley Grove in DeLaveaga Park, surrounded by towering redwoods. A magical summer tradition.</div>
+        <div class="guide-item-meta"><span class="tag">Theater</span><span class="tag">Outdoor</span><span class="tag">Redwoods</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruzmah.org/" target="_blank">🏛️ Abbott Square & MAH</a></div>
+        <div class="guide-item-desc">The Museum of Art & History at 705 Front St is the cultural heart of downtown. Abbott Square out front hosts markets, music, and community events.</div>
+        <div class="guide-item-meta"><span class="tag">Museum</span><span class="tag">Downtown</span><span class="tag">Community</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.collectivesantacruz.com/" target="_blank">🌟 The Collective Santa Cruz</a></div>
+        <div class="guide-item-desc">Pop-up culture, local vendor collaborations, and creative community events. Always something interesting happening.</div>
+        <div class="guide-item-meta"><span class="tag">Pop-Up</span><span class="tag">Community</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD & DRINK TAB -->
+  <div id="food" class="tab-content" role="tabpanel" aria-labelledby="tab-food">
+    <p class="tab-intro">Craft beer, mountain wineries, food truck rallies, and summer block parties. Santa Cruz takes its food and drink scene seriously.</p>
+    <div class="guide-items">
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.foodtrucksagogo.com/upcoming-events" target="_blank">🚚 Food Truck Friday — Scotts Valley</a></div>
+        <div class="guide-item-desc">Monthly food truck event at Skypark with rotating vendors, beer & wine garden, and live music. Last Friday of each month, 5–8 PM.</div>
+        <div class="guide-item-meta"><span class="tag">Food Trucks</span><span class="tag">Scotts Valley</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruz.org/upcoming-event/midtown-santa-cruz-friday-summer-block-parties/" target="_blank">🎉 Midtown Fridays Block Party</a></div>
+        <div class="guide-item-desc">Summer block party on Soquel Ave with food trucks, local vendors, and live bands. Fridays May–August, 5–9 PM. Free admission.</div>
+        <div class="guide-item-meta"><span class="tag">Block Party</span><span class="tag">Free</span><span class="tag">Midtown</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://humblesea.com/" target="_blank">🌊 Humble Sea Brewing</a></div>
+        <div class="guide-item-desc">Foggy IPAs, pastry stouts, and experimental brews. Dog-friendly beer garden at 820 Swift St with rotating food trucks.</div>
+        <div class="guide-item-meta"><span class="tag">Brewery</span><span class="tag">Westside</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.woodhousebrews.com/" target="_blank">🍺 Woodhouse Brewing</a></div>
+        <div class="guide-item-desc">Barrel-aged blends and hop-forward beers at 119 Madrone St. Live music calendar, comedy nights, and a creative kitchen.</div>
+        <div class="guide-item-meta"><span class="tag">Brewery</span><span class="tag">Live Music</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://scmbrew.square.site/" target="_blank">🏔️ Santa Cruz Mountain Brewing</a></div>
+        <div class="guide-item-desc">Award-winning organic brewery since 2005 at 402 Ingalls St. Flagship ales, seasonal brews, and food from Kelly's French Bakery.</div>
+        <div class="guide-item-meta"><span class="tag">Brewery</span><span class="tag">Organic</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://rusticales.com/" target="_blank">🍷 Sante Adairius / Rustic Ales</a></div>
+        <div class="guide-item-desc">Belgian-style saisons and specialty beers at 1315 Water St. Small pub with outdoor patio. Bookie's Pizza available on-site.</div>
+        <div class="guide-item-meta"><span class="tag">Brewery</span><span class="tag">Belgian</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruz.org/blog/urban-wine-tasting-in-santa-cruz-county-a-city-sippers-guide/" target="_blank">🍇 Urban Wine Tasting Guide</a></div>
+        <div class="guide-item-desc">Walkable urban tasting rooms including Madson Wines, Margins Wine, Birichino, and Big Basin Vineyards. No car needed.</div>
+        <div class="guide-item-meta"><span class="tag">Wine</span><span class="tag">Urban</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://winesofthesantacruzmountains.com/" target="_blank">🏔️ Santa Cruz Mountain Wineries</a></div>
+        <div class="guide-item-desc">80+ wineries and 200 growers in the Santa Cruz Mountains AVA. Wine trails, passport programs, and tasting rooms worth the drive.</div>
+        <div class="guide-item-meta"><span class="tag">Wine</span><span class="tag">Mountains</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WELLNESS TAB -->
+  <div id="wellness" class="tab-content" role="tabpanel" aria-labelledby="tab-wellness">
+    <p class="tab-intro">SUP yoga in the harbor, sunrise flows on the beach, float tanks, redwood retreats — Santa Cruz is a wellness town through and through.</p>
+    <div class="guide-items">
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.supshacksantacruz.com/santa-cruz-harbor/lessons/sup-yoga/" target="_blank">🏄 SUP Yoga at the Harbor</a></div>
+        <div class="guide-item-desc">Yoga on paddleboards in the calm harbor waters. Saturday & Sunday at 8:30 AM. $45/person. All levels welcome.</div>
+        <div class="guide-item-meta"><span class="tag">SUP Yoga</span><span class="tag">Harbor</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://labahiahotel.com/experiences/" target="_blank">🌅 Sunrise Yoga at La Bahia</a></div>
+        <div class="guide-item-desc">All-levels yoga flow on the seaside roof deck at La Bahia Hotel. Saturday & Sunday 9 AM. Mats provided, space limited.</div>
+        <div class="guide-item-meta"><span class="tag">Yoga</span><span class="tag">Oceanfront</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.thetroutfarm.com/" target="_blank">🌲 Sunday Yoga at Trout Farm Inn</a></div>
+        <div class="guide-item-desc">Outdoor all-levels yoga among the redwoods in Felton. Wednesdays & Sundays at 9 AM. $25/person.</div>
+        <div class="guide-item-meta"><span class="tag">Yoga</span><span class="tag">Redwoods</span><span class="tag">Felton</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.coastlinepilates.com/" target="_blank">💪 Coastline Pilates</a></div>
+        <div class="guide-item-desc">Locally female-owned studio at 406 Mission St with 25+ group classes weekly. Reformer and mat classes with small class sizes.</div>
+        <div class="guide-item-meta"><span class="tag">Pilates</span><span class="tag">Studio</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.sagefloatspa.com" target="_blank">🧊 Sage Float Spa</a></div>
+        <div class="guide-item-desc">Sensory deprivation float tanks, infrared sauna, cold plunge, and red light therapy. 1395 41st Ave, Capitola.</div>
+        <div class="guide-item-meta"><span class="tag">Float</span><span class="tag">Spa</span><span class="tag">Capitola</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://landofmedicinebuddha.org/" target="_blank">🙏 Land of Medicine Buddha</a></div>
+        <div class="guide-item-desc">Tibetan Buddhist retreat on 108 acres in Soquel. Daily classes, yoga, meditation, and hiking trails. 19 private retreat rooms.</div>
+        <div class="guide-item-meta"><span class="tag">Retreat</span><span class="tag">Meditation</span><span class="tag">Soquel</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://essentiabodytherapy.com/" target="_blank">💆 Essentia Body Therapy</a></div>
+        <div class="guide-item-desc">Premium massage therapy in a historic Victorian at 556 Ocean View Ave. Swedish, deep tissue, prenatal, sports, and craniosacral.</div>
+        <div class="guide-item-meta"><span class="tag">Massage</span><span class="tag">Therapy</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.1440.org/" target="_blank">🏔️ 1440 Multiversity</a></div>
+        <div class="guide-item-desc">75-acre luxury retreat in the Scotts Valley redwoods. Immersive workshops, world-class spa, farm-to-table dining. Day visitors welcome.</div>
+        <div class="guide-item-meta"><span class="tag">Retreat</span><span class="tag">Wellness</span><span class="tag">Scotts Valley</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPPING TAB -->
+  <div id="shopping" class="tab-content" role="tabpanel" aria-labelledby="tab-shopping">
+    <p class="tab-intro">Surf shops, boutiques, outlet deals, and village strolls — organized by neighborhood so you can hit multiple spots in one trip.</p>
+    <div class="guide-items">
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://downtownsantacruz.com/discover/shop" target="_blank">🛍️ Downtown Santa Cruz — Pacific Ave</a></div>
+        <div class="guide-item-desc">The main drag. Bookshop Santa Cruz, independent boutiques, local brands, and people-watching. Start here.</div>
+        <div class="guide-item-meta"><span class="tag">Shopping</span><span class="tag">Downtown</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.patagonia.com/stores/ca/santa-cruz/415-river-street-c/store_santacruz.html" target="_blank">🏔️ Patagonia Outlet — 415 River St</a></div>
+        <div class="guide-item-desc">One of the few Patagonia outlet stores in California. Discounted outdoor gear and clothing. Worth the stop.</div>
+        <div class="guide-item-meta"><span class="tag">Outlet</span><span class="tag">Outdoor Gear</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://downtownsantacruz.com/discover/shop" target="_blank">🌊 Westside Santa Cruz</a></div>
+        <div class="guide-item-desc">Mission Street area — Cameron Marks, surf shops, and local favorites. More laid-back than downtown.</div>
+        <div class="guide-item-meta"><span class="tag">Shopping</span><span class="tag">Westside</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://berdels.com" target="_blank">🏄 Berdels</a></div>
+        <div class="guide-item-desc">Locally-owned surf and skate lifestyle shop on Pacific Ave. Great selection of boards, apparel, and SC-branded gear.</div>
+        <div class="guide-item-meta"><span class="tag">Surf</span><span class="tag">Skate</span><span class="tag">Downtown</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.cityofcapitola.org" target="_blank">🏘️ Capitola Village</a></div>
+        <div class="guide-item-desc">Colorful waterfront village with boutiques, galleries, and local artisan shops. Beautiful walk along the esplanade.</div>
+        <div class="guide-item-meta"><span class="tag">Shopping</span><span class="tag">Capitola</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruzboardroom.com" target="_blank">🛹 The Boardroom on 41st Ave</a></div>
+        <div class="guide-item-desc">Massive skateboard shop with an extensive collection of boards, gear, and skate culture. A local institution.</div>
+        <div class="guide-item-meta"><span class="tag">Skate</span><span class="tag">Eastside</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.oneillwetsuits.com" target="_blank">🏄 O'Neill Surf Shop</a></div>
+        <div class="guide-item-desc">The original — Jack O'Neill invented the modern wetsuit right here in Santa Cruz. Iconic brand, iconic shop.</div>
+        <div class="guide-item-meta"><span class="tag">Surf</span><span class="tag">Heritage</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.theaptosvillage.com" target="_blank">🌳 Aptos Village</a></div>
+        <div class="guide-item-desc">Quaint shopping area in Aptos with cafes, boutiques, and a relaxed small-town feel. Worth the short drive.</div>
+        <div class="guide-item-meta"><span class="tag">Shopping</span><span class="tag">Aptos</span></div>
+      </div>
+      <div class="guide-item">
+        <div class="guide-item-title"><a href="https://www.santacruzca.gov/Services/Transportation/The-Santa-Cruzer-Beach-Downtown-Shuttle" target="_blank">🚌 Santa Cruzer Shuttle</a></div>
+        <div class="guide-item-desc">Eco-friendly electric shuttle connecting downtown to the beach and boardwalk. Free and easy way to get around while shopping.</div>
+        <div class="guide-item-meta"><span class="tag">Transport</span><span class="tag">Free</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHERE TO EAT TAB -->
+  <div id="eat" class="tab-content" role="tabpanel" aria-labelledby="tab-eat">
+    <p class="tab-intro">Our favorite spots across Santa Cruz — organized by neighborhood. From breakfast tacos to Michelin-pedigree dinners, there's something for everyone.</p>
+    <div class="eat-search-wrap">
+      <span class="eat-search-icon">🔍</span>
+      <input type="text" class="eat-search" id="eatSearch" placeholder="Search restaurants, cuisines, neighborhoods..." aria-label="Search restaurants">
+    </div>
+    <p class="eat-no-results" id="eatNoResults">No restaurants match your search. Try a different term.</p>
+
+    <!-- NEAR BOARDWALK & BEACH -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Near Boardwalk & Beach</div>
+      <div class="neighborhood-subtitle">All walkable from the sand — great for before or after beach time.</div>
+      <div class="guide-items">
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.thepicnicbasketsc.com" target="_blank">🧺 The Picnic Basket</a></div>
+          <div class="guide-item-desc">Breakfast and lunch right at 125 Beach St. Fresh local ingredients, great coffee, and a laid-back boardwalk vibe. Get the breakfast sandwich.</div>
+          <div class="guide-item-meta"><span class="tag">Breakfast</span><span class="tag">Lunch</span><span class="tag">Boardwalk</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.thepennyicecreamery.com" target="_blank">🍦 Penny Ice Creamery</a></div>
+          <div class="guide-item-desc">Made-from-scratch artisanal ice cream at 913 Cedar St. Seasonal flavors with local ingredients. A Santa Cruz essential.</div>
+          <div class="guide-item-meta"><span class="tag">Ice Cream</span><span class="tag">Downtown</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://mariannesicecream.com" target="_blank">🍨 Marianne's Ice Cream</a></div>
+          <div class="guide-item-desc">105+ flavors of Michoacana-style ice cream at 1020 Ocean St. A Santa Cruz institution for decades. Kids love it.</div>
+          <div class="guide-item-meta"><span class="tag">Ice Cream</span><span class="tag">Family</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://labahiahotel.com/dine/low-tide/" target="_blank">🌊 Low Tide at La Bahia</a></div>
+          <div class="guide-item-desc">Casual beachfront restaurant at La Bahia Hotel, 215 Beach St. Pacific Island-inspired cuisine with ocean views.</div>
+          <div class="guide-item-meta"><span class="tag">Beachfront</span><span class="tag">Dining</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.jackoneillrestaurant.com" target="_blank">🌅 Jack O'Neill Restaurant & Lounge</a></div>
+          <div class="guide-item-desc">Ocean-view dining at the Dream Inn, 175 W Cliff Dr. Seafood and local ingredients. Best sunset cocktails in town.</div>
+          <div class="guide-item-meta"><span class="tag">Fine Dining</span><span class="tag">Ocean View</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://steamerlanesc.com/" target="_blank">🏄 Steamer Lane Supply</a></div>
+          <div class="guide-item-desc">Perfect stop on the West Cliff walk. Homemade, locally owned, great bite with a view.</div>
+          <div class="guide-item-meta"><span class="tag">Walk-Up</span><span class="tag">West Cliff</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOWNTOWN -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Downtown</div>
+      <div class="neighborhood-subtitle">Pacific Ave and surrounds — the heart of Santa Cruz's food scene.</div>
+      <div class="guide-items">
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.prettygoodadvicerestaurant.com/" target="_blank">🌱 Pretty Good Advice</a></div>
+          <div class="guide-item-desc">Farm-to-table — they literally have their own farm. Vegetarian only, casual walk-up. A family favorite.</div>
+          <div class="guide-item-meta"><span class="tag">Vegetarian</span><span class="tag">Walk-Up</span><span class="tag">🌟 Fav</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://madyolks.com/" target="_blank">🥚 Mad Yolks</a></div>
+          <div class="guide-item-desc">Breakfast sandwiches, locally owned, walk-up. Creative, satisfying, and fast.</div>
+          <div class="guide-item-meta"><span class="tag">Walk-Up</span><span class="tag">Breakfast</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.bcmidtown.com/" target="_blank">🍳 The Breakfast Club at Midtown</a></div>
+          <div class="guide-item-desc">Really yummy sit-down breakfast. Local chain from San Jose.</div>
+          <div class="guide-item-meta"><span class="tag">Sit-Down</span><span class="tag">Breakfast</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://walnutavenuecafe.com/" target="_blank">🥞 Walnut Avenue Café</a></div>
+          <div class="guide-item-desc">Locally owned, a true local favorite. No reservations — go early or expect a wait. Worth it.</div>
+          <div class="guide-item-meta"><span class="tag">Local Fav</span><span class="tag">No Reservations</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.abbottsquaremarket.com/" target="_blank">🏛️ Abbott Square Market</a></div>
+          <div class="guide-item-desc">Food hall: vegan, Cat & Cloud coffee, pizza, Pana Arepas, Belly Goat Burgers, and more.</div>
+          <div class="guide-item-meta"><span class="tag">Food Hall</span><span class="tag">Many Options</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.11thhourcoffee.com/" target="_blank">🌙 11th Hour / After Hours Pop-up</a></div>
+          <div class="guide-item-desc">Coffee by day, ramen/pho/fried chicken sandwiches/craft cocktails/music by night. Hip and local.</div>
+          <div class="guide-item-meta"><span class="tag">Day + Night</span><span class="tag">Hip</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://ponohawaiiangrill.com/" target="_blank">🌺 Pono Hawaiian Grill</a></div>
+          <div class="guide-item-desc">Local, walk-up, live shows, beer garden, cool vibe. Hawaiian comfort food done right.</div>
+          <div class="guide-item-meta"><span class="tag">Walk-Up</span><span class="tag">Beer Garden</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.arslansturkishstreetfood.com/" target="_blank">🥙 Arslan's Turkish Street Food</a></div>
+          <div class="guide-item-desc">Yummy, casual Turkish street food. An underrated gem downtown.</div>
+          <div class="guide-item-meta"><span class="tag">Turkish</span><span class="tag">Casual</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.fusionfarerestaurant.com/" target="_blank">🥢 Fusion Fare</a></div>
+          <div class="guide-item-desc">Asian-Chinese with a twist. Super yummy walk-up beside the Redroom bar.</div>
+          <div class="guide-item-meta"><span class="tag">Walk-Up</span><span class="tag">Asian Fusion</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.thebuzzsushi.com/" target="_blank">🍣 The Buzz Sushi</a></div>
+          <div class="guide-item-desc">Downtown sushi favorite. Fresh and well-made.</div>
+          <div class="guide-item-meta"><span class="tag">Sushi</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://taquerialospericos.com/" target="_blank">🌯 Los Pericos Taqueria</a></div>
+          <div class="guide-item-desc">Solid local taqueria. Reliable, filling, and authentic.</div>
+          <div class="guide-item-meta"><span class="tag">Taqueria</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://laspalmastacobar.com" target="_blank">🌮 Las Palmas Taco Bar</a></div>
+          <div class="guide-item-desc">Authentic Mexican at 55 Front St — a 70-year tradition since 1955. The real deal.</div>
+          <div class="guide-item-meta"><span class="tag">Mexican</span><span class="tag">Downtown</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://namasteindiabistro.com/santa-cruz/" target="_blank">🍛 Namaste Indian Bistro</a></div>
+          <div class="guide-item-desc">Curries, tandoori, and biryani at 1501 Mission St. Consistent, flavorful, and a solid lunch option.</div>
+          <div class="guide-item-meta"><span class="tag">Indian</span><span class="tag">Mission St</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.fireflycoffee.com" target="_blank">☕ Firefly Coffee House</a></div>
+          <div class="guide-item-desc">Local coffee shop at 131 Front St with homemade bagels and fresh pastries. Cozy neighborhood spot.</div>
+          <div class="guide-item-meta"><span class="tag">Coffee</span><span class="tag">Bakery</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDTOWN & SEABRIGHT -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Midtown & Seabright</div>
+      <div class="neighborhood-subtitle">The locals' neighborhood — some of the best food in town lives here.</div>
+      <div class="guide-items">
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://seabrightdeli.com/" target="_blank">🥪 Seabright Deli</a></div>
+          <div class="guide-item-desc">They smoke their own meats in-house. Veggie options too. Local and genuinely yummy.</div>
+          <div class="guide-item-meta"><span class="tag">Local</span><span class="tag">Deli</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.harborcafesantacruz.com/" target="_blank">⚓ Harbor Café</a></div>
+          <div class="guide-item-desc">One of the best breakfast spots in town. Get there early — walk-up only.</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Best Breakfast</span><span class="tag">Walk-Up</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.lapostarestaurant.com/" target="_blank">🍝 La Posta</a></div>
+          <div class="guide-item-desc">Favorite Italian restaurant in town. Best sourdough bread. Period. Reservations essential.</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Best Italian</span><span class="tag">Reservations</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.themidwaysantacruz.com/" target="_blank">☕ The Midway</a></div>
+          <div class="guide-item-desc">Local café, cute vibe. A nice neighborhood spot for coffee or a light bite.</div>
+          <div class="guide-item-meta"><span class="tag">Café</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.akirasantacruz.com/" target="_blank">🍱 Akira Sushi</a></div>
+          <div class="guide-item-desc">Favorite local sushi spot. Walk-up only. Fresh, well-priced, worth the wait.</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Fav Sushi</span><span class="tag">Walk-Up</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.bookiespizza.com/" target="_blank">🍕 Bookie's Pizza</a></div>
+          <div class="guide-item-desc">Detroit-style pizza. The best pizza in town. Local, no-frills, outstanding.</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Best Pizza</span><span class="tag">Detroit Style</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WESTSIDE -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Westside</div>
+      <div class="neighborhood-subtitle">Near the university and Natural Bridges — laid-back neighborhood gems.</div>
+      <div class="guide-items">
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.copalrestaurant.com/" target="_blank">🫙 Copal</a></div>
+          <div class="guide-item-desc">Oaxacan cuisine and mezcal. Elevated, soulful, and unlike anything else in town. Reservations needed.</div>
+          <div class="guide-item-meta"><span class="tag">Oaxacan</span><span class="tag">Mezcal</span><span class="tag">Reservations</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://catandcloud.com/pages/locations" target="_blank">☁️ Cat and Cloud Coffee</a></div>
+          <div class="guide-item-desc">Great local coffee with the best breakfast burrito in the county. No debate.</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Best Breakfast Burrito</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.11thhourcoffee.com/" target="_blank">🌿 11th Hour — Westside</a></div>
+          <div class="guide-item-desc">Outdoor, local, good food and coffee. Chill westside hangout.</div>
+          <div class="guide-item-meta"><span class="tag">Outdoor</span><span class="tag">Local</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.manresabread.com/" target="_blank">🥖 Manresa Bread Café</a></div>
+          <div class="guide-item-desc">From the bread maker at Michelin-starred Manresa. Exceptional bread, pastries, and food.</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Michelin Pedigree</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.bantam1010.com/" target="_blank">🍕 Bantam</a></div>
+          <div class="guide-item-desc">Dinner only. Great vibe, outstanding pizza, walk-in only. A westside institution.</div>
+          <div class="guide-item-meta"><span class="tag">Dinner Only</span><span class="tag">Walk-In</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.atthaisantacruz.com/" target="_blank">🍜 At Thai Recipe</a></div>
+          <div class="guide-item-desc">Small, cozy, hearty portions. Excellent Thai — consistently good value.</div>
+          <div class="guide-item-meta"><span class="tag">Thai</span><span class="tag">Cozy</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APTOS & CAPITOLA -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Aptos & Capitola</div>
+      <div class="neighborhood-subtitle">10–15 minutes south — worth the short drive for destination-worthy meals.</div>
+      <div class="guide-items">
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.cavallettarestaurant.com/" target="_blank">🍝 Cavalletta — Aptos</a></div>
+          <div class="guide-item-desc">Yummy, well-made Italian food. Locally owned and consistently excellent. Reservations needed.</div>
+          <div class="guide-item-meta"><span class="tag">Italian</span><span class="tag">Reservations</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.mentonerestaurant.com/" target="_blank">⭐ Mentone — Aptos</a></div>
+          <div class="guide-item-desc">From the chef/owner of Michelin-starred Manresa. Reservations essential. A destination meal.</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Michelin Star Chef</span><span class="tag">Reservations</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="http://www.thehideoutaptos.com/" target="_blank">🌿 The Hideout — Aptos</a></div>
+          <div class="guide-item-desc">California cuisine with lovely service. Relaxed and well-executed.</div>
+          <div class="guide-item-meta"><span class="tag">California Cuisine</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://trestlesrestaurant.com/" target="_blank">🍷 Trestles — Capitola</a></div>
+          <div class="guide-item-desc">Same owners as Cavalletta. Really well done food. Reservations needed.</div>
+          <div class="guide-item-meta"><span class="tag">Reservations</span><span class="tag">Capitola</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://shadowbrook-capitola.com/" target="_blank">🚂 Shadowbrook — Capitola</a></div>
+          <div class="guide-item-desc">Ride the funicular down to a restaurant overlooking the river. Feels like dining in a beautiful house. If staying within 2 miles, book their free old-fashioned taxi!</div>
+          <div class="guide-item-meta"><span class="tag">🌟 Experience</span><span class="tag">Free Taxi</span><span class="tag">Reservations</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.zameencuisine.com/" target="_blank">🥗 Zameen on 41st — Capitola</a></div>
+          <div class="guide-item-desc">Greek/Mediterranean, great wraps and salads, walk-up. Reliable and fresh.</div>
+          <div class="guide-item-meta"><span class="tag">Walk-Up</span><span class="tag">Mediterranean</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCAL MARKETS & COFFEE -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Local Markets & Coffee</div>
+      <div class="neighborhood-subtitle">Stock up, grab a coffee, or hit the farmers market — all homegrown Santa Cruz.</div>
+      <div class="guide-items">
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.newleaf.com/" target="_blank">🌿 New Leaf Community Markets</a></div>
+          <div class="guide-item-desc">Started right here in Santa Cruz — now in the Bay Area too. Great ready-made food and organic groceries.</div>
+          <div class="guide-item-meta"><span class="tag">Started in SC</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.staffoflifemarket.com/" target="_blank">🌾 Staff of Life</a></div>
+          <div class="guide-item-desc">Local, organic, ready-made. Vegan and meat options. One of the best local markets in town.</div>
+          <div class="guide-item-meta"><span class="tag">Local</span><span class="tag">Organic</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://santacruzfarmersmarket.org/" target="_blank">🧺 Santa Cruz Farmers Markets</a></div>
+          <div class="guide-item-desc">Running Wednesday, Friday, Saturday, and Sunday at various locations.</div>
+          <div class="guide-item-meta"><span class="tag">Wed</span><span class="tag">Fri</span><span class="tag">Sat</span><span class="tag">Sun</span></div>
+        </div>
+        <div class="guide-item">
+          <div class="guide-item-title"><a href="https://www.vervecoffee.com/" target="_blank">☕ Verve Coffee Roasters</a></div>
+          <div class="guide-item-desc">Started right here in Santa Cruz — now a national name. World-class pour-overs, sunny courtyard.</div>
+          <div class="guide-item-meta"><span class="tag">Started in SC</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE TO STAY SECTION -->
+<section id="lodging-section">
+  <div class="section-header">
+    <h2 class="section-title">Where to Stay</h2>
+    <p class="section-desc">Something for every style and budget — organized by neighborhood and vibe.</p>
+  </div>
+
+  <div class="lodging-neighborhoods">
+    <!-- Near Boardwalk & Downtown -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Near Boardwalk & Downtown</div>
+      <div class="neighborhood-subtitle">Most walkable zone — beach, Boardwalk, and Pacific Ave all within easy reach.</div>
+      <div class="lodging-cards">
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://labahiahotel.com/" target="_blank">🌊 La Bahia Hotel</a></div>
+          <div class="lodging-desc">Boutique oceanfront hotel with sunrise yoga on-site. A local favorite.</div>
+          <div class="lodging-tags">
+            <span class="tag">Boutique</span>
+            <span class="tag">Oceanfront</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.dreaminnsantacruz.com/" target="_blank">🌙 Dream Inn</a></div>
+          <div class="lodging-desc">Right on the beach. Stunning ocean views from most rooms. Lively pool area.</div>
+          <div class="lodging-tags">
+            <span class="tag">Boutique</span>
+            <span class="tag">Beachfront</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.westcliffinn.com/" target="_blank">🏡 West Cliff Inn</a></div>
+          <div class="lodging-desc">Victorian B&B steps from the coastal trail. Charming, intimate, and well-reviewed.</div>
+          <div class="lodging-tags">
+            <span class="tag">B&B</span>
+            <span class="tag">Boutique</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.mareasol.com/" target="_blank">🌴 Marea Sol</a></div>
+          <div class="lodging-desc">Comfortable property close to the action. Good value near the beach.</div>
+          <div class="lodging-tags">
+            <span class="tag">Boutique</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://seaandsandinn.com/" target="_blank">🐚 Sea and Sand Inn</a></div>
+          <div class="lodging-desc">Modest and well-located, steps from West Cliff Drive and the beach.</div>
+          <div class="lodging-tags">
+            <span class="tag">Boutique</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.hotelparadox.com/" target="_blank">🎨 Hotel Paradox</a></div>
+          <div class="lodging-desc">Art-forward boutique hotel with a pool and forest-meets-beach vibe.</div>
+          <div class="lodging-tags">
+            <span class="tag">Boutique</span>
+            <span class="tag">Design Hotel</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.marriott.com/en-us/hotels/sjcru-courtyard-santa-cruz/overview/" target="_blank">🏨 Courtyard by Marriott</a></div>
+          <div class="lodging-desc">Reliable, centrally located, and well-appointed. Great for families.</div>
+          <div class="lodging-tags">
+            <span class="tag">Marriott</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.hyatt.com/hyatt-place/en-US/sjczs-hyatt-place-santa-cruz" target="_blank">🏩 Hyatt Place</a></div>
+          <div class="lodging-desc">Modern, comfortable, and well-priced. Good amenities for longer stays.</div>
+          <div class="lodging-tags">
+            <span class="tag">Hyatt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resort & Spa Feel -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Resort & Spa Feel</div>
+      <div class="neighborhood-subtitle">10–20 minutes from the main beach depending on Hwy 1 traffic. Worth it for the experience.</div>
+      <div class="lodging-cards">
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.chaminade.com/" target="_blank">🌿 Chaminade Resort & Spa</a></div>
+          <div class="lodging-desc">Hilltop resort with a full spa, pool, and sweeping Santa Cruz views. A real getaway.</div>
+          <div class="lodging-tags">
+            <span class="tag">Resort</span>
+            <span class="tag">Spa</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://seascaperesort.com/" target="_blank">🏖️ Seascape Beach Resort</a></div>
+          <div class="lodging-desc">Condo-style units right on the beach in Aptos. A proper vacation feel — great for families.</div>
+          <div class="lodging-tags">
+            <span class="tag">Resort</span>
+            <span class="tag">Beachfront</span>
+            <span class="tag">Aptos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scotts Valley — In the Redwoods -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Scotts Valley — In the Redwoods</div>
+      <div class="neighborhood-subtitle">~10 minute drive to the main beach. Quieter, woodsier atmosphere.</div>
+      <div class="lodging-cards">
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.1440.org/" target="_blank">🏔️ 1440 Multiversity</a></div>
+          <div class="lodging-desc">Immersive learning and wellness retreat center nestled in the redwoods. World-class programming, spa, and farm-to-table dining. A transformative experience. Day visitors welcome too.</div>
+          <div class="lodging-tags">
+            <span class="tag">Retreat</span>
+            <span class="tag">Wellness</span>
+            <span class="tag">Redwoods</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.hilton.com/en/hotels/sjcsvhf-hilton-santa-cruz-scotts-valley/" target="_blank">🏨 Hilton Santa Cruz / Scotts Valley</a></div>
+          <div class="lodging-desc">Full-service Hilton in the hills. Pool, restaurant, reliable comfort.</div>
+          <div class="lodging-tags">
+            <span class="tag">Hilton</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.marriott.com/en-us/hotels/sjcfv-four-points-santa-cruz-scotts-valley/overview/" target="_blank">🏨 Four Points by Sheraton</a></div>
+          <div class="lodging-desc">Solid Marriott property in Scotts Valley. Good rates and amenities.</div>
+          <div class="lodging-tags">
+            <span class="tag">Marriott</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Westside Santa Cruz -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Westside Santa Cruz</div>
+      <div class="neighborhood-subtitle">Close to the university, Natural Bridges, and West Cliff Drive.</div>
+      <div class="lodging-cards">
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.hilton.com/en/hotels/sruhhhx-hampton-santa-cruz/" target="_blank">🏨 Hampton Inn by Hilton</a></div>
+          <div class="lodging-desc">Two locations — Ocean St and Mission St. Reliable, clean, good breakfast. Family-friendly.</div>
+          <div class="lodging-tags">
+            <span class="tag">Hilton</span>
+            <span class="tag">2 Locations</span>
+          </div>
+        </div>
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.santacruzfairfieldinn.com/" target="_blank">🏨 Fairfield Inn & Suites</a></div>
+          <div class="lodging-desc">Comfortable Marriott suites with good value. Well-reviewed for families.</div>
+          <div class="lodging-tags">
+            <span class="tag">Marriott</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aptos -->
+    <div class="neighborhood-group">
+      <div class="neighborhood-title">Aptos</div>
+      <div class="neighborhood-subtitle">Quieter neighboring city. 10–15 minute drive to the Boardwalk.</div>
+      <div class="lodging-cards">
+        <div class="lodging-card">
+          <div class="lodging-name"><a href="https://www.seacliffinn.com/" target="_blank">🌊 Seacliff Inn</a></div>
+          <div class="lodging-desc">Walk to Seacliff State Beach. Comfortable and unpretentious. A solid Aptos home base.</div>
+          <div class="lodging-tags">
+            <span class="tag">Boutique</span>
+            <span class="tag">Walk to Beach</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE SECTION -->
+<section id="schedule-section">
+  <div class="section-header">
+    <h2 class="section-title">Reunion Schedule</h2>
+    <p class="schedule-intro">The main family events. Everything else in the guide is up to you.</p>
+  </div>
+
+  <div class="schedule-events">
+    <!-- Friday -->
+    <div class="event-card">
+      <div class="event-header">
+        <div class="event-date">Friday Jun 5</div>
+        <h3 class="event-title">Arrival Day — Open</h3>
+      </div>
+      <p class="event-desc">No formal plans — settle in, explore town, and reconnect at your own pace. Check the Field Guide above for ideas on what to do.</p>
+      <div class="event-time-location">
+        <div class="event-time-label">Time:</div>
+        <div>All Day</div>
+        <div class="event-location-label">Location:</div>
+        <div>Santa Cruz</div>
+      </div>
+      <div class="event-actions">
+        <button class="btn btn-primary" onclick="rsvpEvent(this)" aria-pressed="false">I'm Coming</button>
+      </div>
+    </div>
+
+    <!-- Saturday -->
+    <div class="event-card">
+      <div class="event-header">
+        <div class="event-date">Saturday Jun 6</div>
+        <h3 class="event-title">Beach Day & Taco Lunch — Cowell Beach</h3>
+      </div>
+      <p class="event-desc">Family beach day at Cowell Beach right by the wharf. Tacos for lunch — come hungry, bring sunscreen, and stay as long as you like.</p>
+      <div class="event-time-location">
+        <div class="event-time-label">Time:</div>
+        <div>Late Morning</div>
+        <div class="event-location-label">Location:</div>
+        <div>Cowell Beach, by the Wharf</div>
+      </div>
+      <div class="event-actions">
+        <button class="btn" onclick="addToCalendar('Beach Day & Taco Lunch — Cowell Beach', '2026-06-06T11:00', 'Cowell Beach, Santa Cruz')">Add to Calendar</button>
+        <button class="btn btn-primary" onclick="rsvpEvent(this)" aria-pressed="false">I'm Coming</button>
+      </div>
+    </div>
+
+    <!-- Sunday Morning -->
+    <div class="event-card">
+      <div class="event-header">
+        <div class="event-date">Sunday Jun 7</div>
+        <h3 class="event-title">Morning Hike — Henry Cowell Redwoods</h3>
+      </div>
+      <p class="event-desc">Start the day with a group hike through ancient redwoods. Easy, paved loop trail — strollers welcome. A beautiful way to close out the weekend.</p>
+      <div class="event-time-location">
+        <div class="event-time-label">Time:</div>
+        <div>Morning</div>
+        <div class="event-location-label">Location:</div>
+        <div>Henry Cowell Redwoods State Park</div>
+      </div>
+      <div class="event-actions">
+        <button class="btn" onclick="addToCalendar('Morning Hike — Henry Cowell Redwoods', '2026-06-07T09:00', 'Henry Cowell Redwoods State Park')">Add to Calendar</button>
+        <button class="btn btn-primary" onclick="rsvpEvent(this)" aria-pressed="false">I'm Coming</button>
+      </div>
+    </div>
+
+    <!-- Sunday Brunch -->
+    <div class="event-card">
+      <div class="event-header">
+        <div class="event-date">Sunday Jun 7</div>
+        <h3 class="event-title">Farewell Brunch at Cheryl & Jason's</h3>
+      </div>
+      <p class="event-desc">Close out the reunion with a family brunch. Share stories, swap photos, and make plans for next year.</p>
+      <div class="event-time-location">
+        <div class="event-time-label">Time:</div>
+        <div>Early Afternoon</div>
+        <div class="event-location-label">Location:</div>
+        <div>Cheryl & Jason's</div>
+      </div>
+      <div class="event-actions">
+        <button class="btn" onclick="addToCalendar('Farewell Brunch at Cheryl & Jason\\'s', '2026-06-07T12:00', 'Cheryl and Jason\\'s')">Add to Calendar</button>
+        <button class="btn btn-primary" onclick="rsvpEvent(this)" aria-pressed="false">I'm Coming</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Alarcon | Ruano Family Reunion · Santa Cruz · June 2026</p>
+  <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.8;">Made with love, for the ones who matter most.</p>
+</footer>
+
+<script>
+// Initialize Mapbox GL JS Map
+let mapInstance;
+let allMarkers = [];
+let currentFilter = 'all';
+
+// Tab-to-map-category mapping
+const tabToMapCategory = {
+  events: 'reunion',
+  nature: 'nature',
+  music: 'music',
+  art: 'art',
+  food: 'food',
+  wellness: 'wellness',
+  shopping: 'shopping',
+  eat: 'food'
+};
+
+function initMap() {
+  if (typeof mapboxgl === 'undefined') {
+    setTimeout(initMap, 100);
+    return;
+  }
+
+  mapboxgl.accessToken = window.REUNION_MAPBOX_TOKEN;
+
+  mapInstance = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/outdoors-v12',
+    center: [-122.0891, 36.9741],
+    zoom: 12
+  });
+
+  mapInstance.addControl(new mapboxgl.NavigationControl());
+
+  const markerCategories = {
+    reunion: { color: '#E26A3D', icon: '📍' },
+    nature: { color: '#2F5D50', icon: '🌲' },
+    music: { color: '#7B5EA7', icon: '🎵' },
+    art: { color: '#E8A87C', icon: '🎨' },
+    food: { color: '#D4A574', icon: '🍽️' },
+    wellness: { color: '#5BA88F', icon: '🧘' },
+    shopping: { color: '#C67B4E', icon: '🛍️' },
+    lodging: { color: '#1F4E5F', icon: '🛏️' }
+  };
+
+  const reunionEvents = [
+    { name: 'Beach Day & Taco Lunch — Cowell Beach', category: 'reunion', lat: 36.9625, lng: -122.0226, desc: 'Family beach day with tacos at Cowell Beach by the wharf.', time: 'Saturday, Jun 6 — Late Morning' },
+    { name: 'Morning Hike — Henry Cowell Redwoods', category: 'reunion', lat: 37.0236, lng: -122.0530, desc: 'Group hike through ancient redwoods. Easy trail, all levels.', time: 'Sunday, Jun 7 — Morning' },
+    { name: 'Farewell Brunch at Cheryl & Jason\'s', category: 'reunion', lat: 36.9741, lng: -122.0291, desc: 'Close out the reunion with a family brunch.', time: 'Sunday, Jun 7 — Early Afternoon' }
+  ];
+
+  const natureSpots = [
+    { name: 'Henry Cowell Redwoods State Park', category: 'nature', lat: 37.0236, lng: -122.0530, desc: 'Ancient redwoods, easy trails, and natural beauty.', time: 'Open daily' },
+    { name: 'Natural Bridges State Beach', category: 'nature', lat: 36.9525, lng: -122.0575, desc: 'Iconic rock arch, tide pools, and sandy coves.', time: 'Best at low tide' },
+    { name: 'West Cliff Drive Trail', category: 'nature', lat: 36.9656, lng: -122.0534, desc: 'Scenic coastal walk with ocean views and sea lions.', time: 'Open daily' },
+    { name: 'Seacliff State Beach', category: 'nature', lat: 36.9713, lng: -121.9122, desc: 'Sandy beach with sunken ship pier and sunset walks.', time: 'Open daily' }
+  ];
+
+  const musicSpots = [
+    { name: 'Kuumbwa Jazz Center', category: 'music', lat: 36.96984, lng: -122.02631, desc: 'World-class jazz. 320 Cedar St.', time: 'Check calendar' },
+    { name: 'The Catalyst Club', category: 'music', lat: 36.9714, lng: -122.0251, desc: 'Major touring acts since 1969. 1011 Pacific Ave.', time: 'Check calendar' },
+    { name: "Moe's Alley", category: 'music', lat: 36.9877, lng: -121.9829, desc: 'Blues, reggae, salsa, funk. 1535 Commercial Way.', time: 'Check calendar' },
+    { name: 'Quarry Amphitheater', category: 'music', lat: 36.9989, lng: -122.0567, desc: 'Open-air amphitheater on UCSC campus.', time: 'Summer events' },
+    { name: 'Abbott Square (Afro-Beats)', category: 'music', lat: 36.9746, lng: -122.0255, desc: 'Afrobeats DJ party at Abbott Square Market.', time: 'Bi-weekly' }
+  ];
+
+  const artSpots = [
+    { name: 'Abbott Square & MAH', category: 'art', lat: 36.9746, lng: -122.0255, desc: 'Museum of Art & History. 705 Front St.', time: 'Tue-Sun' },
+    { name: 'SC Shakespeare (DeLaveaga)', category: 'art', lat: 37.0066, lng: -122.0583, desc: 'Shakespeare in the redwoods at Audrey Stanley Grove.', time: 'Summer season' }
+  ];
+
+  const foodSpots = [
+    { name: 'Humble Sea Brewing', category: 'food', lat: 36.9596, lng: -122.0489, desc: 'Foggy IPAs and beer garden. 820 Swift St.', time: 'Check hours' },
+    { name: 'Woodhouse Brewing', category: 'food', lat: 36.9595, lng: -122.0351, desc: 'Barrel-aged blends. 119 Madrone St.', time: 'Check hours' },
+    { name: 'SC Mountain Brewing', category: 'food', lat: 36.9592, lng: -122.0482, desc: 'Organic brewery. 402 Ingalls St.', time: 'Check hours' },
+    { name: 'Sante Adairius / Rustic Ales', category: 'food', lat: 36.9754, lng: -122.0252, desc: 'Belgian-style saisons. 1315 Water St.', time: 'Check hours' },
+    { name: 'The Picnic Basket', category: 'food', lat: 36.9751, lng: -122.0184, desc: 'Breakfast & lunch at 125 Beach St.', time: 'Morning-Afternoon' },
+    { name: 'Penny Ice Creamery', category: 'food', lat: 36.9748, lng: -122.0278, desc: 'Artisanal ice cream. 913 Cedar St.', time: 'Check hours' },
+    { name: "Marianne's Ice Cream", category: 'food', lat: 36.9819, lng: -122.0218, desc: '105+ flavors. 1020 Ocean St.', time: 'Check hours' },
+    { name: 'Low Tide at La Bahia', category: 'food', lat: 36.9715, lng: -122.0268, desc: 'Beachfront dining. 215 Beach St.', time: 'Check hours' },
+    { name: "Jack O'Neill Restaurant", category: 'food', lat: 36.9623, lng: -122.0244, desc: 'Ocean-view dining at Dream Inn.', time: 'Check hours' },
+    { name: 'Verve Coffee Roasters', category: 'food', lat: 36.9763, lng: -122.0267, desc: 'Specialty roaster. 1540 Pacific Ave.', time: 'Morning-Evening' },
+    { name: 'Las Palmas Taco Bar', category: 'food', lat: 36.9738, lng: -122.0163, desc: 'Authentic Mexican since 1955. 55 Front St.', time: 'Check hours' }
+  ];
+
+  const wellnessSpots = [
+    { name: 'SUP Yoga at Harbor', category: 'wellness', lat: 36.9612, lng: -122.0005, desc: 'Paddleboard yoga. Sat & Sun 8:30 AM.', time: 'Weekends' },
+    { name: 'Land of Medicine Buddha', category: 'wellness', lat: 37.0109, lng: -121.9344, desc: 'Buddhist retreat. 5800 Prescott Rd, Soquel.', time: 'Open daily' },
+    { name: 'Sage Float Spa', category: 'wellness', lat: 36.9707, lng: -121.9652, desc: 'Float tanks & sauna. 1395 41st Ave.', time: 'Check hours' },
+    { name: '1440 Multiversity', category: 'wellness', lat: 37.0433, lng: -122.0107, desc: 'Luxury wellness retreat in the redwoods.', time: 'Check calendar' }
+  ];
+
+  const lodgingSpots = [
+    { name: 'La Bahia Hotel', category: 'lodging', lat: 36.9715, lng: -122.0268, desc: 'Boutique oceanfront hotel. 215 Beach St.', time: 'Call for availability' },
+    { name: 'Dream Inn', category: 'lodging', lat: 36.9616, lng: -122.0251, desc: 'Right on the beach. 175 W Cliff Dr.', time: 'Call for availability' },
+    { name: 'Chaminade Resort & Spa', category: 'lodging', lat: 36.9861, lng: -122.0614, desc: 'Hilltop resort with spa and sweeping views.', time: 'Call for availability' },
+    { name: 'Hotel Paradox', category: 'lodging', lat: 36.9741, lng: -122.0311, desc: 'Art-forward boutique hotel with pool.', time: 'Call for availability' },
+    { name: 'Seascape Beach Resort', category: 'lodging', lat: 36.9697, lng: -121.8997, desc: 'Condo-style resort in Aptos.', time: 'Call for availability' },
+    { name: '1440 Multiversity', category: 'lodging', lat: 37.0433, lng: -122.0107, desc: 'Wellness retreat in Scotts Valley redwoods.', time: 'Call for availability' }
+  ];
+
+  const shoppingSpots = [
+    { name: 'Pacific Avenue (Downtown)', category: 'shopping', lat: 36.9711, lng: -122.0302, desc: 'Main shopping street downtown.', time: 'Varies' },
+    { name: 'Patagonia Outlet', category: 'shopping', lat: 36.9711, lng: -122.0418, desc: 'Outlet store. 415 River St.', time: 'Check hours' },
+    { name: 'Capitola Village', category: 'shopping', lat: 36.9752, lng: -121.9533, desc: 'Waterfront shops and boutiques.', time: 'Varies' }
+  ];
+
+  const allMarkerData = [...reunionEvents, ...natureSpots, ...musicSpots, ...artSpots, ...foodSpots, ...wellnessSpots, ...lodgingSpots, ...shoppingSpots];
+
+  allMarkerData.forEach(markerData => {
+    const category = markerCategories[markerData.category];
+
+    const el = document.createElement('div');
+    el.className = 'map-marker';
+    el.style.cssText = 'width:32px;height:32px;border-radius:50%;border:3px solid white;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:opacity 0.3s ease;';
+    el.style.backgroundColor = category.color;
+    el.textContent = category.icon;
+
+    const popupContent = `
+      <div style="font-family: 'Playfair Display', serif;">
+        <div class="popup-title">${markerData.name}</div>
+        <div class="popup-category">${markerData.category.toUpperCase()}</div>
+        <div class="popup-desc">${markerData.desc}</div>
+        <div style="font-size: 0.85rem; color: #0F2A44; margin-top: 0.5rem;">
+          <strong>Time:</strong> ${markerData.time}
+        </div>
+        <button class="popup-link" onclick="getDirections(${markerData.lat}, ${markerData.lng})">Get Directions</button>
+      </div>
+    `;
+
+    const popup = new mapboxgl.Popup({ offset: 25, maxWidth: '280px' })
+      .setHTML(popupContent);
+
+    const marker = new mapboxgl.Marker(el)
+      .setLngLat([markerData.lng, markerData.lat])
+      .setPopup(popup)
+      .addTo(mapInstance);
+
+    marker.markerCategory = markerData.category;
+    marker.markerElement = el;
+    allMarkers.push(marker);
+  });
+}
+
+// Filter map markers with smooth transition
+function filterMarkers(category) {
+  currentFilter = category;
+  allMarkers.forEach(marker => {
+    if (category === 'all' || marker.markerCategory === category) {
+      marker.markerElement.style.opacity = '1';
+      marker.markerElement.style.pointerEvents = 'auto';
+    } else {
+      marker.markerElement.style.opacity = '0.15';
+      marker.markerElement.style.pointerEvents = 'none';
+    }
+  });
+  // Sync the filter buttons
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-filter') === category);
+  });
+}
+
+// Get directions
+function getDirections(lat, lng) {
+  window.open(`https://www.google.com/maps/search/${lat},${lng}`, '_blank');
+}
+
+// Add to calendar (.ics)
+function addToCalendar(title, dateTime, location) {
+  const date = dateTime.split('T')[0].replace(/-/g, '');
+  const time = dateTime.split('T')[1].replace(/:/g, '') + '00';
+  const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Alarcon Ruano Reunion//Santa Cruz 2026//EN\nBEGIN:VEVENT\nUID:${title.replace(/\s/g, '-')}@alarcomeruano.local\nDTSTAMP:${date}T${time}Z\nDTSTART:${date}T${time}Z\nSUMMARY:${title}\nLOCATION:${location}\nDESCRIPTION:Alarcon Ruano Family Reunion event in Santa Cruz, June 2026\nEND:VEVENT\nEND:VCALENDAR`;
+  const blob = new Blob([icsContent], { type: 'text/calendar' });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${title.replace(/\s/g, '-')}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  window.URL.revokeObjectURL(url);
+}
+
+// RSVP function with localStorage persistence
+function rsvpEvent(btn) {
+  const eventCard = btn.closest('.event-card');
+  const eventTitle = eventCard.querySelector('.event-title').textContent.trim();
+  const rsvpKey = 'rsvp_' + eventTitle.replace(/\s+/g, '_');
+
+  if (btn.classList.contains('coming')) {
+    btn.classList.remove('coming');
+    btn.style.background = '';
+    btn.style.borderColor = '';
+    btn.style.color = '';
+    btn.textContent = "I'm Coming";
+    btn.setAttribute('aria-pressed', 'false');
+    try { localStorage.removeItem(rsvpKey); } catch(e) {}
+  } else {
+    btn.classList.add('coming');
+    btn.style.background = '#2F5D50';
+    btn.style.borderColor = '#2F5D50';
+    btn.style.color = 'white';
+    btn.textContent = "\u2713 I'm Coming";
+    btn.setAttribute('aria-pressed', 'true');
+    try { localStorage.setItem(rsvpKey, 'true'); } catch(e) {}
+  }
+}
+
+// Restore RSVP state from localStorage
+function restoreRSVPs() {
+  document.querySelectorAll('.event-card').forEach(card => {
+    const title = card.querySelector('.event-title').textContent.trim();
+    const rsvpKey = 'rsvp_' + title.replace(/\s+/g, '_');
+    try {
+      if (localStorage.getItem(rsvpKey) === 'true') {
+        const btn = card.querySelector('[aria-pressed]');
+        if (btn) {
+          btn.classList.add('coming');
+          btn.style.background = '#2F5D50';
+          btn.style.borderColor = '#2F5D50';
+          btn.style.color = 'white';
+          btn.textContent = "\u2713 I'm Coming";
+          btn.setAttribute('aria-pressed', 'true');
+        }
+      }
+    } catch(e) {}
+  });
+}
+
+// Tab functionality with animation and map sync
+function switchTab(tabName, triggerBtn) {
+  const activeTab = document.querySelector('.tab-content.active');
+  const newTab = document.getElementById(tabName);
+  if (!newTab || newTab === activeTab) return;
+
+  // Hide current, show new (CSS animation handles the visual transition)
+  if (activeTab) {
+    activeTab.classList.remove('active');
+  }
+  newTab.classList.add('active');
+
+  // Update ARIA and active states
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  triggerBtn.classList.add('active');
+  triggerBtn.setAttribute('aria-selected', 'true');
+
+  // Sync map markers with active tab
+  const mapCategory = tabToMapCategory[tabName];
+  if (mapCategory && mapInstance) {
+    filterMarkers(mapCategory);
+  }
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    switchTab(this.getAttribute('data-tab'), this);
+  });
+
+  // Keyboard arrow navigation for tabs
+  btn.addEventListener('keydown', function(e) {
+    const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+    const idx = tabs.indexOf(this);
+    let newIdx;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      newIdx = (idx + 1) % tabs.length;
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      newIdx = (idx - 1 + tabs.length) % tabs.length;
+    }
+    if (newIdx !== undefined) {
+      tabs[newIdx].focus();
+      tabs[newIdx].click();
+    }
+  });
+});
+
+// Map filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    filterMarkers(this.getAttribute('data-filter'));
+  });
+});
+
+// Sticky nav — show after scrolling past hero
+const stickyNav = document.getElementById('stickyNav');
+const hero = document.getElementById('hero');
+const sections = ['map-section', 'field-guide-section', 'lodging-section', 'schedule-section'];
+
+function updateStickyNav() {
+  const heroBottom = hero.getBoundingClientRect().bottom;
+  stickyNav.classList.toggle('visible', heroBottom < 0);
+
+  // Highlight active section
+  let activeSection = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 80) activeSection = id;
+    }
+  });
+  stickyNav.querySelectorAll('a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + activeSection);
+  });
+}
+
+window.addEventListener('scroll', updateStickyNav, { passive: true });
+
+// Smooth scroll for sticky nav and anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const navHeight = stickyNav.classList.contains('visible') ? stickyNav.offsetHeight : 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// Where to Eat search/filter
+const eatSearch = document.getElementById('eatSearch');
+const eatNoResults = document.getElementById('eatNoResults');
+
+if (eatSearch) {
+  eatSearch.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    const eatTab = document.getElementById('eat');
+    const groups = eatTab.querySelectorAll('.neighborhood-group');
+    let totalVisible = 0;
+
+    groups.forEach(group => {
+      const items = group.querySelectorAll('.guide-item');
+      let groupVisible = 0;
+
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const match = !query || text.includes(query);
+        item.style.display = match ? '' : 'none';
+        if (match) groupVisible++;
+      });
+
+      group.style.display = groupVisible > 0 ? '' : 'none';
+      totalVisible += groupVisible;
+    });
+
+    eatNoResults.style.display = (query && totalVisible === 0) ? 'block' : 'none';
+  });
+}
+
+// Initialize map when Mapbox is loaded (deferred)
+function waitForMapbox() {
+  if (typeof mapboxgl !== 'undefined') {
+    initMap();
+  } else {
+    setTimeout(waitForMapbox, 100);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    waitForMapbox();
+    restoreRSVPs();
+  });
+} else {
+  waitForMapbox();
+  restoreRSVPs();
+}
+</script>
+
+</body>
+</html>
