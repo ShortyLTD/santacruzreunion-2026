@@ -1,0 +1,55 @@
+name: Verify guest guide
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build static files without contacting Mapbox
+        env:
+          MAPBOX_PUBLIC_TOKEN: pk.validation.validation
+        run: node scripts/build.mjs
+      - name: Verify restored content and JavaScript
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re
+          import subprocess
+
+          class Guide(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = set()
+                  self.anchors = set()
+                  self.lodgings = 0
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if "id" in attrs:
+                      self.ids.add(attrs["id"])
+                  if tag == "a" and attrs.get("href", "").startswith("#"):
+                      self.anchors.add(attrs["href"][1:])
+                  if "lodging-name" in attrs.get("class", "").split():
+                      self.lodgings += 1
+
+          html = Path("dist/index.html").read_text()
+          guide = Guide()
+          guide.feed(html)
+          assert not guide.anchors - guide.ids, guide.anchors - guide.ids
+          assert {"schedule-section", "lodging-section", "map-section", "field-guide-section"} <= guide.ids
+          assert guide.lodgings == 16, guide.lodgings
+          for script in re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, re.S):
+              if script.strip():
+                  subprocess.run(["node", "--check"], input=script, text=True, check=True)
+          assert Path("dist/map-config.js").is_file()
+          print("PASS: all anchors, 16 lodging suggestions, JavaScript syntax, and build outputs.")
+          PY
