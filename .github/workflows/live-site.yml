@@ -1,0 +1,34 @@
+name: Verify live guest site
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/live-site.yml'
+      - 'scripts/verify-live.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify HTTPS and certificate
+        run: |
+          curl --fail --silent --show-error --head https://2026.santacruzreunion.com/
+          curl --fail --silent --show-error https://2026.santacruzreunion.com/ | python3 -c 'import sys; s=sys.stdin.read(); assert all(f"id=\"{i}\"" in s for i in ["schedule-section","lodging-section"]); print("Schedule and lodging anchors present")'
+      - name: Install browser test tools
+        run: |
+          npm install --no-save --package-lock=false playwright@1.63.0
+          npx playwright install --with-deps chromium
+      - name: Verify guide and map in desktop and mobile browsers
+        run: node scripts/verify-live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: guest-site-browser-evidence
+          path: evidence/
+          retention-days: 14
