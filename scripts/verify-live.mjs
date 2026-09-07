@@ -21,14 +21,14 @@ try {
     });
     const response = await page.goto('https://2026.santacruzreunion.com/', { waitUntil: 'networkidle' });
     assert.equal(response.status(), 200);
-    await page.waitForFunction(() => typeof mapInstance !== 'undefined' && mapInstance && mapInstance.loaded(), { timeout: 60000 });
+    await page.waitForFunction(() => typeof mapInstance !== 'undefined' && mapInstance && mapInstance.loaded(), null, { timeout: 60000 });
     assert(mapStyleLoaded, 'Map style must load with the existing credential on the new domain');
     assert.equal(await page.locator('.lodging-card').count(), 16);
     assert.equal(await page.locator('a[href*="netlify.app"],script[src*="netlify.app"],img[src*="netlify.app"]').count(), 0);
     const brokenAnchors = await page.locator('a[href^="#"]').evaluateAll(links => links.map(a => a.getAttribute('href')).filter(href => href.length > 1 && !document.getElementById(href.slice(1))));
     assert.deepEqual(brokenAnchors, []);
     await page.screenshot({ path: 'evidence/guest-' + width + '.png', fullPage: true });
-    await page.getByRole('button', { name: 'Explore the Guide' }).click();
+    await page.getByRole('button', { name: 'Explore the Guide' }).press('Enter');
     await page.locator('#map').scrollIntoViewIfNeeded();
     assert(await page.locator('.map-marker').count() > 20);
     await page.getByRole('button', { name: 'Lodging', exact: true }).click();
